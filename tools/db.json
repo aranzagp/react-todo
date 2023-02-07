@@ -1,0 +1,46 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "Llevar a los perritos a pasear",
+      "description": "Recordar llevar a los 4",
+      "done": true
+    },
+    {
+      "id": 2,
+      "title": "Terminar curso de Elixir",
+      "description": "Hacer el de la subscripción",
+      "done": false
+    },
+    {
+      "id": 3,
+      "title": "Ir al Gym",
+      "description": "Toca hacer pierna",
+      "done": true
+    },
+    {
+      "id": 4,
+      "title": "Cagar",
+      "description": "",
+      "done": false,
+      "createdAt": 1675795050819,
+      "slug": "cagar"
+    },
+    {
+      "id": 5,
+      "title": "Sisi",
+      "description": "blabla",
+      "done": false,
+      "createdAt": 1675795397271,
+      "slug": "sisi"
+    },
+    {
+      "id": 6,
+      "title": "DSFD",
+      "description": "DFGssss",
+      "done": false,
+      "createdAt": 1675796605250,
+      "slug": "dsfd"
+    }
+  ]
+}
