@@ -3,40 +3,40 @@ import { connect } from "react-redux";
 import * as todoActions from "../../redux/actions/todoActions";
 import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
+import TodoList from "./TodoList";
+import { Redirect } from "react-router-dom";
 
 class TodosPage extends React.Component {
   state = {
-    todo: {
-      title: ""
+    redirectToAddTodoPage: false
+  };
+
+  componentDidMount() {
+    const { todos, actions } = this.props;
+
+    if (todos.length === 0) {
+      actions.loadTodos().catch(error => {
+        alert("Loading todos failed" + error);
+      });
     }
-  };
-
-  handleChange = event => {
-    const todo = { ...this.state.todo, title: event.target.value };
-    this.setState({ todo });
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-    this.props.actions.createTodo(this.state.todo);
-  };
+  }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <>
+        {this.state.redirectToAddTodoPage && <Redirect to="/todo" />}
         <h2>Todos</h2>
-        <h3>Add Todo</h3>
-        <input
-          type="text"
-          onChange={this.handleChange}
-          value={this.state.todo.title}
-        />
 
-        <input type="submit" value="Save" />
-        {this.props.todos.map(todo => (
-          <div key={todo.title}>{todo.title}</div>
-        ))}
-      </form>
+        <button
+          style={{ marginBottom: 20 }}
+          className="btn btn-primary add-todo"
+          onClick={() => this.setState({ redirectToAddTodoPage: true })}
+        >
+          Add Todo
+        </button>
+
+        <TodoList todos={this.props.todos} />
+      </>
     );
   }
 }
@@ -54,7 +54,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(todoActions, dispatch)
+    actions: {
+      loadTodos: bindActionCreators(todoActions.loadTodos, dispatch),
+    }
   };
 }
 

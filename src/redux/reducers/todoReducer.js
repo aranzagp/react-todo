@@ -1,9 +1,16 @@
 import * as types from "../actions/actionTypes";
+import initialState from "./initialState";
 
-export default function todoReducer(state = [], action) {
+export default function todoReducer(state = initialState.todos, action) {
   switch (action.type) {
-    case types.CREATE_TODO:
+    case types.CREATE_TODO_SUCCESS:
       return [...state, { ...action.todo }];
+    case types.UPDATE_TODO_SUCCESS:
+      return state.map(todo =>
+        todo.id === action.todo.id ? action.todo : todo
+      );
+    case types.LOAD_TODOS_SUCCESS:
+      return action.todos;
     default:
       return state;
   }
