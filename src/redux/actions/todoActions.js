@@ -41,3 +41,14 @@ export function saveTodo(todo) {
       });
   };
 }
+
+export function deleteTodoOptimistic(todo) {
+  return { type: types.DELETE_TODO_OPTIMISTIC, todo };
+}
+
+export function deleteTodo(todo) {
+  return function(dispatch) {
+    dispatch(deleteTodoOptimistic(todo));
+    return todoApi.deleteTodo(todo.id);
+  };
+}

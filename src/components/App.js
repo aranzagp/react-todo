@@ -6,6 +6,8 @@ import Header from "./common/Header";
 import PageNotFound from "./PageNotFound";
 import TodosPage from "./todos/TodosPage";
 import ManageTodoPage from "./todos/ManageTodoPage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 function App() {
@@ -20,6 +22,7 @@ function App() {
         <Route path="/todo" component={ManageTodoPage} />
         <Route component={PageNotFound} />
       </Switch>
+      <ToastContainer autoClose={3000} hideProgressBar />
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const TodoList = ({ todos }) => (
+const TodoList = ({ todos, onDeleteClick }) => (
   <table className="table">
     <thead>
       <tr>
@@ -29,6 +29,14 @@ const TodoList = ({ todos }) => (
             </td>
             <td>{todo.description}</td>
             <td>{todo.done ? "true" : "false"}</td>
+            <td>
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => onDeleteClick(todo)}
+              >
+                Delete
+              </button>
+            </td>
           </tr>
         );
       })}
@@ -37,7 +45,8 @@ const TodoList = ({ todos }) => (
 );
 
 TodoList.propTypes = {
-  todos: PropTypes.array.isRequired
+  todos: PropTypes.array.isRequired,
+  onDeleteClick: PropTypes.func.isRequired
 };
 
 export default TodoList;

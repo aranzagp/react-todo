@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import TodoList from "./TodoList";
 import { Redirect } from "react-router-dom";
+import { toast } from "react-toastify";
 
 class TodosPage extends React.Component {
   state = {
@@ -21,6 +22,15 @@ class TodosPage extends React.Component {
     }
   }
 
+  handleDeleteTodo = async todo => {
+    toast.error("Todo deleted");
+    try {
+      await this.props.actions.deleteTodo(todo);
+    } catch (error) {
+      toast.error("Delete failed. " + error.message, { autoClose: false });
+    }
+  };
+
   render() {
     return (
       <>
@@ -35,7 +45,7 @@ class TodosPage extends React.Component {
           Add Todo
         </button>
 
-        <TodoList todos={this.props.todos} />
+        <TodoList onDeleteClick={this.handleDeleteTodo} todos={this.props.todos} />
       </>
     );
   }
@@ -56,6 +66,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       loadTodos: bindActionCreators(todoActions.loadTodos, dispatch),
+      deleteTodo: bindActionCreators(todoActions.deleteTodo, dispatch)
     }
   };
 }

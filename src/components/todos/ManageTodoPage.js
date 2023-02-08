@@ -33,11 +33,28 @@ function ManageTodoPage({
     }));
   }
 
+  function formIsValid() {
+    const { title } = todo;
+    const errors = {};
+
+    if (!title) errors.title = "Title is required.";
+
+    setErrors(errors);
+    // Form is valid if the errors object still has no properties
+    return Object.keys(errors).length === 0;
+  }
+
   function handleSave(event) {
     event.preventDefault();
-    saveTodo(todo).then(() => {
-      history.push("/todos");
-    });
+    if (!formIsValid()) return;
+    saveTodo(todo)
+      .then(() => {
+        // toast.success("Todo saved.");
+        history.push("/todos");
+      })
+      .catch(error => {
+        setErrors({ onSave: error.message });
+      });
   }
 
   return (
