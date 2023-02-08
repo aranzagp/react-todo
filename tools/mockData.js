@@ -4,18 +4,21 @@ const todos = [
     title: "Llevar a los perritos a pasear",
     description: "Recordar llevar a los 4",
     done: true,
+    slug: "llevar-a-los-perritos-a-pasear"
   },
   {
     id: 2,
     title: "Terminar curso de Elixir",
     description: "Hacer el de la subscripción",
     done: false,
+    slug: "terminar-curso-de-elixir"
   },
   {
     id: 3,
     title: "Ir al Gym",
     description: "Toca hacer pierna",
     done: true,
+    slug: "ir-al-gym"
   }
 ];
 

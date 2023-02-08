@@ -19,7 +19,7 @@ const TodoList = ({ todos, onDeleteClick }) => (
             <td>
               <a
                 className="btn btn-light"
-                href={"" + todo.slug}
+                href={"/todo/" + todo.slug}
               >
                 See details
               </a>

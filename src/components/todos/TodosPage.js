@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import * as todoActions from "../../redux/actions/todoActions";
 import PropTypes from "prop-types";
@@ -7,49 +7,45 @@ import TodoList from "./TodoList";
 import { Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 
-class TodosPage extends React.Component {
-  state = {
-    redirectToAddTodoPage: false
-  };
+const TodosPage = (props) => {
+  const [redirectToAddTodoPage, setRedirectToAddTodoPage] = useState(false);
 
-  componentDidMount() {
-    const { todos, actions } = this.props;
+  useEffect(() => {
+    const { todos, actions } = props;
 
     if (todos.length === 0) {
       actions.loadTodos().catch(error => {
         alert("Loading todos failed" + error);
       });
     }
-  }
+  }, []);
 
-  handleDeleteTodo = async todo => {
+  const handleDeleteTodo = async todo => {
     toast.error("Todo deleted");
     try {
-      await this.props.actions.deleteTodo(todo);
+      await props.actions.deleteTodo(todo);
     } catch (error) {
       toast.error("Delete failed. " + error.message, { autoClose: false });
     }
   };
 
-  render() {
-    return (
-      <>
-        {this.state.redirectToAddTodoPage && <Redirect to="/todo" />}
-        <h2>Todos</h2>
+  return (
+    <>
+      {redirectToAddTodoPage && <Redirect to="/todo" />}
+      <h2>Todos</h2>
 
-        <button
-          style={{ marginBottom: 20 }}
-          className="btn btn-primary add-todo"
-          onClick={() => this.setState({ redirectToAddTodoPage: true })}
-        >
-          Add Todo
-        </button>
+      <button
+        style={{ marginBottom: 20 }}
+        className="btn btn-primary add-todo"
+        onClick={() => setRedirectToAddTodoPage(true)}
+      >
+        Add Todo
+      </button>
 
-        <TodoList onDeleteClick={this.handleDeleteTodo} todos={this.props.todos} />
-      </>
-    );
-  }
-}
+      <TodoList onDeleteClick={handleDeleteTodo} todos={props.todos} />
+    </>
+  );
+};
 
 TodosPage.propTypes = {
   todos: PropTypes.array.isRequired,
